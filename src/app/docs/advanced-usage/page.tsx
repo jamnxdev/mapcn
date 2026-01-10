@@ -14,7 +14,7 @@ import { getExampleSource } from "@/lib/get-example-source";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Advanced Usage",
+  title: "Advanced",
 };
 
 const refCode = `import { Map, type MapRef } from "@/components/ui/map";
@@ -69,9 +69,23 @@ export default function AdvancedPage() {
 
   return (
     <DocsLayout
-      title="Advanced Usage"
+      title="Advanced"
       description="Access the underlying MapLibre GL instance for advanced customization."
       prev={{ title: "Clusters", href: "/docs/clusters" }}
+      toc={[
+        { title: "Using a Ref", slug: "using-a-ref" },
+        { title: "Using the Hook", slug: "using-the-hook" },
+        { title: "Example: Custom Controls", slug: "example-custom-controls" },
+        {
+          title: "Example: Custom GeoJSON Layer",
+          slug: "example-custom-geojson-layer",
+        },
+        {
+          title: "Example: Markers via Layers",
+          slug: "example-markers-via-layers",
+        },
+        { title: "Extend to Build", slug: "extend-to-build" },
+      ]}
     >
       <DocsSection>
         <p>

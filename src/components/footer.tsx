@@ -2,8 +2,8 @@ import Link from "next/link";
 
 export function Footer() {
   return (
-    <footer className="w-full px-6 py-8 border-t border-border/40 bg-muted/20">
-      <div className="mx-auto max-w-5xl flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
+    <footer className="w-full py-8 border-t border-border/40 bg-muted/20">
+      <div className="container flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
         <div className="flex items-center gap-2 flex-wrap justify-center sm:justify-start">
           <span>© {new Date().getFullYear()} mapcn</span>
           <span className="text-border">•</span>

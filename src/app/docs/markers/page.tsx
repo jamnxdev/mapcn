@@ -27,8 +27,13 @@ export default function MarkersPage() {
     <DocsLayout
       title="Markers"
       description="Add interactive markers to your map with popups and tooltips."
-      prev={{ title: "Map Controls", href: "/docs/controls" }}
+      prev={{ title: "Controls", href: "/docs/controls" }}
       next={{ title: "Popups", href: "/docs/popups" }}
+      toc={[
+        { title: "Basic Example", slug: "basic-example" },
+        { title: "Rich Popups", slug: "rich-popups" },
+        { title: "Draggable Marker", slug: "draggable-marker" },
+      ]}
     >
       <DocsSection>
         <p>

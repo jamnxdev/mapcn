@@ -1,4 +1,4 @@
-import { Zap, Moon, Puzzle, Code, Box, Palette } from "lucide-react";
+import { Zap, Moon, Puzzle, Code, Box, Layers } from "lucide-react";
 import { DocsLayout, DocsSection, DocsLink } from "./_components/docs";
 import { Metadata } from "next";
 
@@ -30,9 +30,10 @@ const features = [
     description: "Own your code. No dependencies, just copy into your project.",
   },
   {
-    icon: Palette,
-    title: "Customizable",
-    description: "Styled with Tailwind. Easy to customize and extend.",
+    icon: Layers,
+    title: "Any Map Style",
+    description:
+      "Use any MapLibre-compatible tiles: MapTiler, Carto, OpenStreetMap, and more.",
   },
 ];
 
@@ -46,6 +47,12 @@ export default function IntroductionPage() {
       title="Introduction"
       description="Beautiful, accessible map components."
       next={{ title: "Installation", href: "/docs/installation" }}
+      toc={[
+        { title: "Why mapcn?", slug: "why-mapcn" },
+        { title: "Why MapLibre Directly?", slug: "why-maplibre-directly" },
+        { title: "Any Map Style", slug: "any-map-style" },
+        { title: "Features", slug: "features" },
+      ]}
     >
       <DocsSection>
         <p>
@@ -71,9 +78,95 @@ export default function IntroductionPage() {
         <p>
           There&apos;s no proper copy-paste, easy-to-use map integration for
           React. Most solutions require complex configurations, API keys, or
-          heavy wrapper libraries. mapcn gives you beautiful maps with a single
-          command.
+          heavy wrapper libraries. mapcn solves this:
         </p>
+        <ul>
+          <li>
+            <strong className="text-foreground">One Command:</strong> Run the
+            install, get a working map. No config files, no API keys, no setup.
+          </li>
+          <li>
+            <strong className="text-foreground">Own Your Code:</strong> Copy the
+            components into your project. Modify anything.
+          </li>
+          <li>
+            <strong className="text-foreground">No Wrapper Overhead:</strong>{" "}
+            Built directly on MapLibre. Drop to the raw API whenever you need.
+          </li>
+          <li>
+            <strong className="text-foreground">Looks Good Already:</strong>{" "}
+            Thoughtful defaults with dark mode. Style with Tailwind as needed.
+          </li>
+          <li>
+            <strong className="text-foreground">Works Anywhere:</strong> Bring
+            your own tiles — MapTiler, Carto, OSM, or any MapLibre-compatible
+            source.
+          </li>
+        </ul>
+      </DocsSection>
+
+      <DocsSection title="Why MapLibre Directly?">
+        <p>
+          mapcn uses{" "}
+          <DocsLink href="https://maplibre.org" external>
+            MapLibre
+          </DocsLink>{" "}
+          directly instead of wrapper libraries like{" "}
+          <DocsLink href="https://visgl.github.io/react-map-gl" external>
+            react-map-gl
+          </DocsLink>
+          . This keeps components close to the underlying API — when you copy a
+          mapcn component, you fully own the map instance without extra
+          framework dependencies.
+        </p>
+        <p>
+          UI elements like markers, popups, and tooltips are rendered via React
+          portals, giving you complete styling freedom. You can drop down to raw
+          MapLibre APIs anytime without &quot;escaping&quot; a wrapper.
+        </p>
+      </DocsSection>
+
+      <DocsSection title="Any Map Style">
+        <p>
+          mapcn works with any{" "}
+          <DocsLink href="https://maplibre.org/maplibre-style-spec/" external>
+            MapLibre-compatible tiles
+          </DocsLink>
+          . This means you can use tiles from virtually any provider:
+        </p>
+        <ul>
+          <li>
+            <DocsLink href="https://www.maptiler.com" external>
+              MapTiler
+            </DocsLink>{" "}
+            - Beautiful vector tiles with extensive customization options
+          </li>
+          <li>
+            <DocsLink href="https://carto.com/basemaps" external>
+              Carto
+            </DocsLink>{" "}
+            - Clean, minimal basemaps perfect for data visualization
+          </li>
+          <li>
+            <DocsLink href="https://www.openstreetmap.org" external>
+              OpenStreetMap
+            </DocsLink>{" "}
+            - Community-driven, open-source map data
+          </li>
+          <li>
+            <DocsLink href="https://stadiamaps.com" external>
+              Stadia Maps
+            </DocsLink>{" "}
+            - Fast, reliable tile hosting with multiple styles
+          </li>
+          <li>
+            <DocsLink href="https://www.thunderforest.com" external>
+              Thunderforest
+            </DocsLink>{" "}
+            - Specialized maps for outdoors, cycling, and transport
+          </li>
+          <li>And any other provider that supports the MapLibre style spec</li>
+        </ul>
       </DocsSection>
 
       <DocsSection title="Features">

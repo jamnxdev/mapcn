@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/next";
 
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
+import { Footer } from "@/components/footer";
 
 const geist = Geist({
   subsets: ["latin"],
@@ -100,9 +101,10 @@ export default function RootLayout({
       className={`${geist.variable} ${geistMono.variable}`}
       suppressHydrationWarning
     >
-      <body className="font-sans antialiased">
+      <body className="font-sans antialiased min-h-screen flex flex-col">
         <ThemeProvider>
-          {children}
+          <div className="flex-1">{children}</div>
+          <Footer />
           <Analytics />
         </ThemeProvider>
       </body>

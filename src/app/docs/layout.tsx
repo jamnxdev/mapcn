@@ -9,16 +9,14 @@ export default function DocsLayout({
 }) {
   return (
     <SidebarProvider>
-      <div className="flex min-h-screen w-full flex-col">
+      <div className="flex min-h-screen flex-col w-full">
         <Header
-          className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60"
+          className="sticky top-0 z-50 bg-background/95 border-b backdrop-blur supports-backdrop-filter:bg-background/60"
           leftContent={<MobileSidebarTrigger />}
         />
-        <div className="flex flex-1">
+        <div className="flex flex-1 container">
           <DocsSidebar />
-          <main className="flex-1 max-w-3xl mx-auto w-full px-6 py-12">
-            {children}
-          </main>
+          <main className="flex-1 w-full">{children}</main>
         </div>
       </div>
     </SidebarProvider>

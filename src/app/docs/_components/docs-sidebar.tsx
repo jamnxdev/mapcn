@@ -2,18 +2,6 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-  Map,
-  BookOpen,
-  Code,
-  Braces,
-  MapPin,
-  MessageSquare,
-  Route,
-  Wrench,
-  Settings,
-  Layers,
-} from "lucide-react";
 
 import {
   Sidebar,
@@ -27,43 +15,24 @@ import {
   SidebarTrigger,
   useSidebar,
 } from "@/components/ui/sidebar";
-
-const navigation = [
-  {
-    title: "Basics",
-    items: [
-      { title: "Getting Started", href: "/docs", icon: BookOpen },
-      { title: "Installation", href: "/docs/installation", icon: Code },
-      {
-        title: "API Reference",
-        href: "/docs/api-reference",
-        icon: Braces,
-      },
-    ],
-  },
-  {
-    title: "Examples",
-    items: [
-      { title: "Basic Map", href: "/docs/basic-map", icon: Map },
-      { title: "Map Controls", href: "/docs/controls", icon: Settings },
-      { title: "Markers", href: "/docs/markers", icon: MapPin },
-      { title: "Popups", href: "/docs/popups", icon: MessageSquare },
-      { title: "Routes", href: "/docs/routes", icon: Route },
-      { title: "Clusters", href: "/docs/clusters", icon: Layers },
-      { title: "Advanced Usage", href: "/docs/advanced-usage", icon: Wrench },
-    ],
-  },
-];
+import { docsNavigation } from "@/lib/docs-navigation";
 
 export function DocsSidebar() {
   const pathname = usePathname();
   const { setOpenMobile } = useSidebar();
 
   return (
-    <Sidebar className="top-14 border-r bg-transparent **:data-[sidebar=sidebar]:bg-transparent">
-      <SidebarContent className="pt-4">
-        {navigation.map((group) => (
-          <SidebarGroup key={group.title}>
+    <Sidebar
+      className="sticky top-16 h-[calc(100svh-9.5rem)] border-none bg-transparent **:data-[sidebar=sidebar]:bg-transparent"
+      style={
+        {
+          "--sidebar-width": "12rem",
+        } as React.CSSProperties
+      }
+    >
+      <SidebarContent className="pt-8 no-scrollbar overflow-x-hidden">
+        {docsNavigation.map((group) => (
+          <SidebarGroup key={group.title} className="px-0">
             <SidebarGroupLabel className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground/70">
               {group.title}
             </SidebarGroupLabel>
@@ -74,7 +43,7 @@ export function DocsSidebar() {
                     <SidebarMenuButton
                       asChild
                       isActive={pathname === item.href}
-                      className="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground data-[active=true]:font-medium"
+                      className="data-[active=true]:bg-accent data-[active=true]:border-accent 3xl:fixed:w-full 3xl:fixed:max-w-48 relative h-[30px] overflow-visible border border-transparent text-[0.8rem] text-muted-foreground font-medium after:absolute after:inset-x-0 after:-inset-y-1 after:z-0 after:rounded-md"
                     >
                       <Link
                         href={item.href}

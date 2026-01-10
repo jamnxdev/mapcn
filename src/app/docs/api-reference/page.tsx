@@ -36,7 +36,21 @@ export default function ApiReferencePage() {
       title="API Reference"
       description="Complete reference for all map components and their props."
       prev={{ title: "Installation", href: "/docs/installation" }}
-      next={{ title: "Basic Map", href: "/docs/basic-map" }}
+      next={{ title: "Map", href: "/docs/basic-map" }}
+      toc={[
+        { title: "Component Anatomy", slug: "component-anatomy" },
+        { title: "Map", slug: "map" },
+        { title: "useMap", slug: "usemap" },
+        { title: "MapControls", slug: "mapcontrols" },
+        { title: "MapMarker", slug: "mapmarker" },
+        { title: "MarkerContent", slug: "markercontent" },
+        { title: "MarkerPopup", slug: "markerpopup" },
+        { title: "MarkerTooltip", slug: "markertooltip" },
+        { title: "MarkerLabel", slug: "markerlabel" },
+        { title: "MapPopup", slug: "mappopup" },
+        { title: "MapRoute", slug: "maproute" },
+        { title: "MapClusterLayer", slug: "mapclusterlayer" },
+      ]}
     >
       <DocsNote>
         <strong>Note:</strong> This library is built on top of{" "}
@@ -92,6 +106,12 @@ export default function ApiReferencePage() {
               type: "{ light?: string | StyleSpecification; dark?: string | StyleSpecification }",
               description:
                 "Custom map styles for light and dark themes. Overrides the default Carto base map tiles.",
+            },
+            {
+              name: "projection",
+              type: "ProjectionSpecification",
+              description:
+                'Map projection type. Use { type: "globe" } for 3D globe view.',
             },
           ]}
         />

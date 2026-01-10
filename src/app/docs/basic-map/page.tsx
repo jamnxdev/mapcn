@@ -5,7 +5,7 @@ import { getExampleSource } from "@/lib/get-example-source";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Basic Map",
+  title: "Map",
 };
 
 export default function BasicMapPage() {
@@ -13,10 +13,10 @@ export default function BasicMapPage() {
 
   return (
     <DocsLayout
-      title="Basic Map"
+      title="Map"
       description="The simplest way to add an interactive map to your application."
       prev={{ title: "API Reference", href: "/docs/api-reference" }}
-      next={{ title: "Map Controls", href: "/docs/controls" }}
+      next={{ title: "Controls", href: "/docs/controls" }}
     >
       <DocsSection>
         <p>

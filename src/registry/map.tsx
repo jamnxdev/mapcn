@@ -20,7 +20,6 @@ import { createPortal } from "react-dom";
 import { X, Minus, Plus, Locate, Maximize, Loader2 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import React from "react";
 
 type MapContextValue = {
   map: MapLibreGL.Map | null;
@@ -51,6 +50,8 @@ type MapProps = {
     light?: MapStyleOption;
     dark?: MapStyleOption;
   };
+  /** Map projection type. Use `{ type: "globe" }` for 3D globe view. */
+  projection?: MapLibreGL.ProjectionSpecification;
 } & Omit<MapLibreGL.MapOptions, "container" | "style">;
 
 type MapRef = MapLibreGL.Map;
@@ -66,7 +67,7 @@ const DefaultLoader = () => (
 );
 
 const Map = forwardRef<MapRef, MapProps>(function Map(
-  { children, styles, ...props },
+  { children, styles, projection, ...props },
   ref
 ) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -75,6 +76,7 @@ const Map = forwardRef<MapRef, MapProps>(function Map(
   const [isStyleLoaded, setIsStyleLoaded] = useState(false);
   const { resolvedTheme } = useTheme();
   const currentStyleRef = useRef<MapStyleOption | null>(null);
+  const styleTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const mapStyles = useMemo(
     () => ({
@@ -85,6 +87,13 @@ const Map = forwardRef<MapRef, MapProps>(function Map(
   );
 
   useImperativeHandle(ref, () => mapInstance as MapLibreGL.Map, [mapInstance]);
+
+  const clearStyleTimeout = useCallback(() => {
+    if (styleTimeoutRef.current) {
+      clearTimeout(styleTimeoutRef.current);
+      styleTimeoutRef.current = null;
+    }
+  }, []);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -103,7 +112,17 @@ const Map = forwardRef<MapRef, MapProps>(function Map(
       ...props,
     });
 
-    const styleDataHandler = () => setIsStyleLoaded(true);
+    const styleDataHandler = () => {
+      clearStyleTimeout();
+      // Delay to ensure style is fully processed before allowing layer operations
+      // This is a workaround to avoid race conditions with the style loading
+      styleTimeoutRef.current = setTimeout(() => {
+        setIsStyleLoaded(true);
+        if (projection) {
+          map.setProjection(projection);
+        }
+      }, 150);
+    };
     const loadHandler = () => setIsLoaded(true);
 
     map.on("load", loadHandler);
@@ -111,6 +130,7 @@ const Map = forwardRef<MapRef, MapProps>(function Map(
     setMapInstance(map);
 
     return () => {
+      clearStyleTimeout();
       map.off("load", loadHandler);
       map.off("styledata", styleDataHandler);
       map.remove();
@@ -129,15 +149,12 @@ const Map = forwardRef<MapRef, MapProps>(function Map(
 
     if (currentStyleRef.current === newStyle) return;
 
+    clearStyleTimeout();
     currentStyleRef.current = newStyle;
     setIsStyleLoaded(false);
 
-    const frameId = requestAnimationFrame(() => {
-      mapInstance.setStyle(newStyle, { diff: true });
-    });
-
-    return () => cancelAnimationFrame(frameId);
-  }, [mapInstance, resolvedTheme, mapStyles]);
+    mapInstance.setStyle(newStyle, { diff: true });
+  }, [mapInstance, resolvedTheme, mapStyles, clearStyleTimeout]);
 
   const isLoading = !isLoaded || !isStyleLoaded;
 

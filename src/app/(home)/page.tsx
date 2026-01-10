@@ -1,21 +1,21 @@
 import { Header } from "@/components/header";
 import { Hero } from "./_components/hero";
-import { Examples } from "./_components/examples";
-import { Footer } from "./_components/footer";
+import { ExamplesGrid } from "./_components/examples-grid";
 
 export default function Page() {
   return (
-    <div className="min-h-screen bg-background flex flex-col overflow-x-hidden">
-      <Header className="max-w-5xl mx-auto w-full xl:px-0" />
+    <div className="flex flex-col pb-28">
+      <Header className="border-b border-transparent" />
 
-      <main className="flex-1 px-6 py-20 mx-auto w-full">
-        <section className="max-w-5xl mx-auto flex flex-col gap-20">
+      <main className="flex-1">
+        <section className="relative w-full py-20">
           <Hero />
-          <Examples />
+        </section>
+
+        <section className="container px-6">
+          <ExamplesGrid />
         </section>
       </main>
-
-      <Footer />
     </div>
   );
 }
